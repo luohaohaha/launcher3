@@ -216,12 +216,11 @@ private void drop(DropTarget dropTarget, Runnable flingAnimation) {
                     dropTarget.onDrop(mDragObject, mOptions);
                 }
                 accepted = true;
-                //add by yy //2018-11-30 16:05 修改
+            
                 if (FeatureFlags.REMOVE_DRAWER && dropTarget instanceof DeleteDropTarget &&
                         isNeedCancelDrag(mDragObject.dragInfo)) {
                     cancelDrag();
                 }
-                //end add by yy
             }
         }
         final View dropTargetAsView = dropTarget instanceof View ? (View) dropTarget : null;
