@@ -20,7 +20,7 @@ LoaderTask类修改
             ArrayList<InstallShortcutReceiver.PendingInstallShortcutInfo> added = new ArrayList<InstallShortcutReceiver.PendingInstallShortcutInfo>();
             synchronized (this) {
                 for (LauncherActivityInfo app : apps) {
-                    //隐藏不需要显示的应用
+                    //隐藏不需要显示的应用 隐藏配置文件assets-app_default_filter.json(包名过滤)
                     if(isHideApplication(app.getComponentName().getPackageName())){
                         continue;
                     }
