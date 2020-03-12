@@ -1,42 +1,308 @@
-# Launcher3-mx
+# Launcher3客制化记录
+### 1.去除搜索页(第一屏)
 
-## 更新：20190627
-* 基于 Android P Launcher源码
-* 修改gradle版本为5.1.1
+BaseFlags类里面修改
+```
+public static final boolean QSB_ON_FIRST_SCREEN = false;
+```
+### 2.将应用移到桌面
+LoaderTask类修改
+##### (1)新增方法
+``` /**
+     * 加载所有应用
+     */
+    private void getAllApplications() {
+        final Context context = mApp.getContext();
+        ArrayList<Pair<ItemInfo, Object>> installQueue = new ArrayList<>();
+        final List<UserHandle> profiles = mUserManager.getUserProfiles();
+        for (UserHandle user : profiles) {
+            final List<LauncherActivityInfo> apps = mLauncherApps.getActivityList(null, user);
+            ArrayList<InstallShortcutReceiver.PendingInstallShortcutInfo> added = new ArrayList<InstallShortcutReceiver.PendingInstallShortcutInfo>();
+            synchronized (this) {
+                for (LauncherActivityInfo app : apps) {
+                    //隐藏不需要显示的应用 隐藏配置文件assets-app_default_filter.json(包名过滤)
+                    if(isHideApplication(app.getComponentName().getPackageName())){
+                        continue;
+                    }
+                    InstallShortcutReceiver.PendingInstallShortcutInfo pendingInstallShortcutInfo = new InstallShortcutReceiver.PendingInstallShortcutInfo(app, context);
+                    added.add(pendingInstallShortcutInfo);
+                    installQueue.add(pendingInstallShortcutInfo.getItemInfo());
+                }
+            }
+            if (!added.isEmpty()) {
+                mApp.getModel().addAndBindAddedWorkspaceItems(installQueue);
+            }
+        }
+    }
+```
+##### (2)修改run方法 
+``` // second step
+            TraceHelper.partitionSection(TAG, "step 2.1: loading all apps");
+            loadAllApps();
+            getAllApplications();
 
-## 主要分支
+            TraceHelper.partitionSection(TAG, "step 2.2: Binding all apps");
+            verifyNotStopped();
+            mResults.bindAllApps(); 
+``` 
 
-* Launcher3-6.0
-* Launcher3-7.0
-* Launcher3-8.0.0_r24
-* Launcher3-9.0
-* master
+BaseModelUpdateTask修改,run方法去掉return
 
-## 教程
-注：本教程是基于Android6.0的Launcher3讲解的，最新版与现在版本差异较大，我尽量在关键位置添加相应的注释，方便大家修改。
-#### 一.[墨香带你学Launcher之（一）-概述](http://www.codemx.cn/2016/07/30/Launcher01/)
+```
+public final void run() {
+        if (!mModel.isModelLoaded()) {
+            if (DEBUG_TASKS) {
+                Log.d(TAG, "Ignoring model task since loader is pending=" + this);
+            }
+            // Loader has not yet run.
+//            return;
+        }
+        execute(mApp, mDataModel, mAllAppsList);
+    }
+```
 
-#### 二.[墨香带你学Launcher之（二）-数据加载流程](http://www.codemx.cn/2016/08/05/Launcher02/)
+PackageUpdatedTask修改
+##### (1)新增添加方法
+```
+public void updateToWorkSpace( Context context, LauncherAppState app , AllAppsList appsList){
+            List<Pair<ItemInfo, Object>> installQueue = new ArrayList<>();
+            final List<UserHandle> profiles = UserManagerCompat.getInstance(context).getUserProfiles();
+            ArrayList<InstallShortcutReceiver.PendingInstallShortcutInfo> added = new ArrayList<>();
+            for (UserHandle user : profiles) {
+                final List<LauncherActivityInfo> apps = LauncherAppsCompat.getInstance(context).getActivityList(null, user);
+                synchronized (this) {
+                    for (LauncherActivityInfo info : apps) {for (AppInfo appInfo : appsList.added) {
+                        if(info.getComponentName().equals(appInfo.componentName)){
+                            InstallShortcutReceiver.PendingInstallShortcutInfo mPendingInstallShortcutInfo =  new InstallShortcutReceiver.PendingInstallShortcutInfo(info,context);
+                            added.add(mPendingInstallShortcutInfo);
+                            installQueue.add(mPendingInstallShortcutInfo.getItemInfo());
+                        }
+                    }
+                    }
+                }
+            }
+            if (!added.isEmpty()) {
+                app.getModel().addAndBindAddedWorkspaceItems(installQueue);
+            }
+        }
+```
+##### (2)添加到workspace
+```
+final ArrayList<AppInfo> addedOrModified = new ArrayList<>();
+        addedOrModified.addAll(appsList.added);
+        updateToWorkSpace(context, app, appsList);
+        appsList.added.clear();
+        addedOrModified.addAll(appsList.modified);
+        appsList.modified.clear();
 
-#### 三.[墨香带你学Launcher之（三）-绑定屏幕、图标、文件夹和Widget](http://www.codemx.cn/2016/08/14/Launcher03/)
+        final ArrayList<AppInfo> removedApps = new ArrayList<>(appsList.removed);
+        appsList.removed.clear();
+```
+### 3.去除上滑抽屉
+AllAppsTransitionController修改
 
-#### 四.[墨香带你学Launcher之（四）-应用安装、更新、卸载时的数据加载](http://www.codemx.cn/2016/08/21/Launcher04/)
+```@Override
+    public void setStateWithAnimation(LauncherState toState,
+            AnimatorSetBuilder builder, AnimationConfig config) {
+        //去除上滑抽屉菜单注释
+        /*
+        float targetProgress = toState.getVerticalProgress(mLauncher);
+        if (Float.compare(mProgress, targetProgress) == 0) {
+            setAlphas(toState, config.getPropertySetter(builder));
+            // Fail fast
+            onProgressAnimationEnd();
+            return;
+        }
 
-#### 五.[墨香带你学Launcher之（五）-Workspace滑动](http://www.codemx.cn/2016/10/16/Launcher05/)
+        if (!config.playNonAtomicComponent()) {
+            // There is no atomic component for the all apps transition, so just return early.
+            return;
+        }
 
-#### 六.[墨香带你学Launcher之（六）-拖拽](http://www.codemx.cn/2016/11/21/Launcher06/)
+        Interpolator interpolator = config.userControlled ? LINEAR : toState == OVERVIEW
+                ? builder.getInterpolator(ANIM_OVERVIEW_SCALE, FAST_OUT_SLOW_IN)
+                : FAST_OUT_SLOW_IN;
+        ObjectAnimator anim =
+                ObjectAnimator.ofFloat(this, ALL_APPS_PROGRESS, mProgress, targetProgress);
+        anim.setDuration(config.duration);
+        anim.setInterpolator(builder.getInterpolator(ANIM_VERTICAL_PROGRESS, interpolator));
+        anim.addListener(getProgressAnimatorListener());
 
-#### 七.[墨香带你学Launcher之（七）-小部件的加载、添加以及大小调节](http://www.codemx.cn/2016/12/18/Launcher07/)
+        builder.play(anim);
 
-#### 八.[墨香带你学Launcher之（八）- 加载Icon、设置壁纸](http://www.codemx.cn/2017/05/19/Launcher08/)
+        setAlphas(toState, config.getPropertySetter(builder));*/
+    }
+```
+AllAppsSwipeController修改 canInterceptTouch 返回false
 
-## Protobuf相关信息查看
-* [Protobuf](https://github.com/protocolbuffers/protobuf)
-* [protobuf-gradle-plugin](https://github.com/google/protobuf-gradle-plugin)
+```@Override
+    protected boolean canInterceptTouch(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            mTouchDownEvent = ev;
+        }
+        if (mCurrentAnimation != null) {
+            // If we are already animating from a previous state, we can intercept.
+            return true;
+        }
+        if (AbstractFloatingView.getTopOpenView(mLauncher) != null) {
+            return false;
+        }
+        if (!mLauncher.isInState(NORMAL) && !mLauncher.isInState(ALL_APPS)) {
+            // Don't listen for the swipe gesture if we are already in some other state.
+            return false;
+        }
+        if (mLauncher.isInState(ALL_APPS) && !mLauncher.getAppsView().shouldContainerScroll(ev)) {
+            return false;
+        }
+        return false;
+    }
+```
 
-## 预览图
-<img width="320" src="/image/launcher01.png"/>    <img width="320" src="/image/launcher02.png"/>
-<img width="320" src="/image/launcher03.png"/>    <img width="320" src="/image/launcher04.png"/>
-<img width="320" src="/image/launcher05.png"/>    <img width="320" src="/image/launcher06.png"/>
-<img width="320" src="/image/launcher07.png"/>    <img width="320" src="/image/launcher08.png"/>
-<img width="320" src="/image/launcher09.png"/>    <img width="320" src="/image/launcher10.png"/>
+### 4.长按拖动改成取消和卸载
+DeleteDropTarget修改
+
+```
+private void setTextBasedOnDragSource(ItemInfo item) {
+        if (!TextUtils.isEmpty(mText)) {
+           /* mText = getResources().getString(item.id != ItemInfo.NO_ID
+                    ? R.string.remove_drop_target_label
+                    : android.R.string.cancel);*/
+                mText = getResources().getString( android.R.string.cancel);
+            requestLayout();
+        }
+    }
+```
+```
+private void setControlTypeBasedOnDragSource(ItemInfo item) {
+        mControlType = ControlType.CANCEL_TARGET;
+    }
+```
+DragController修改
+
+```
+private void drop(DropTarget dropTarget, Runnable flingAnimation) {
+        final int[] coordinates = mCoordinatesTemp;
+        mDragObject.x = coordinates[0];
+        mDragObject.y = coordinates[1];
+
+        // Move dragging to the final target.
+        if (dropTarget != mLastDropTarget) {
+            if (mLastDropTarget != null) {
+                mLastDropTarget.onDragExit(mDragObject);
+            }
+            mLastDropTarget = dropTarget;
+            if (dropTarget != null) {
+                dropTarget.onDragEnter(mDragObject);
+            }
+        }
+
+        mDragObject.dragComplete = true;
+        if (mIsInPreDrag) {
+            if (dropTarget != null) {
+                dropTarget.onDragExit(mDragObject);
+            }
+            return;
+        }
+
+
+        // Drop onto the target.
+        boolean accepted = false;
+        if (dropTarget != null) {
+            dropTarget.onDragExit(mDragObject);
+            if (dropTarget.acceptDrop(mDragObject)) {
+                if (flingAnimation != null) {
+                    flingAnimation.run();
+                } else {
+                    dropTarget.onDrop(mDragObject, mOptions);
+                }
+                accepted = true;
+            
+                if (FeatureFlags.REMOVE_DRAWER && dropTarget instanceof DeleteDropTarget &&
+                        isNeedCancelDrag(mDragObject.dragInfo)) {
+                    cancelDrag();
+                }
+            }
+        }
+        final View dropTargetAsView = dropTarget instanceof View ? (View) dropTarget : null;
+        mLauncher.getUserEventDispatcher().logDragNDrop(mDragObject, dropTargetAsView);
+        dispatchDropComplete(dropTargetAsView, accepted);
+    }
+
+    private boolean isNeedCancelDrag(ItemInfo item){
+        return (item.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION ||
+                item.itemType == LauncherSettings.Favorites.ITEM_TYPE_FOLDER);
+    }
+```
+DeleteDropTarget修改
+
+```
+@Override
+    public void onAccessibilityDrop(View view, ItemInfo item) {
+        // Remove the item from launcher and the db, we can ignore the containerInfo in this call
+        // because we already remove the drag view from the folder (if the drag originated from
+        // a folder) in Folder.beginDrag()
+        if(isCanDrop(item)) {
+            mLauncher.removeItem(view, item, true /* deleteFromDb */);
+            mLauncher.getWorkspace().stripEmptyScreens();
+            mLauncher.getDragLayer()
+                    .announceForAccessibility(getContext().getString(R.string.item_removed));
+        }
+    }
+
+    private boolean isCanDrop(ItemInfo item){
+        return !(item.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION ||
+                item.itemType == LauncherSettings.Favorites.ITEM_TYPE_FOLDER);
+    }
+```
+Launcher修改
+
+```
+@Override
+    protected void onResume() {
+        TraceHelper.beginSection("ON_RESUME");
+        super.onResume();
+        TraceHelper.partitionSection("ON_RESUME", "superCall");
+
+        mHandler.removeCallbacks(mLogOnDelayedResume);
+        Utilities.postAsyncCallback(mHandler, mLogOnDelayedResume);
+
+        setOnResumeCallback(null);
+        // Process any items that were added while Launcher was away.
+        InstallShortcutReceiver.disableAndFlushInstallQueue(
+                InstallShortcutReceiver.FLAG_ACTIVITY_PAUSED, this);
+
+        // Refresh shortcuts if the permission changed.
+        mModel.refreshShortcutsIfRequired();
+        注释onresume跳动动画
+        //DiscoveryBounce.showForHomeIfNeeded(this);
+        if (mLauncherCallbacks != null) {
+            mLauncherCallbacks.onResume();
+        }
+        UiFactory.onLauncherStateOrResumeChanged(this);
+
+        TraceHelper.endSection("ON_RESUME");
+    }
+```
+
+### 5.去除默认shortcut和hotseat、修改添加顺序
+修改xml文件夹下地default_workspace_xxx和dw_phone_hotseat。
+修改添加顺序，默认为1，因为我去除了搜索页面，需要从0开始添加，修改AddWorkspaceItemsTask的findSpaceForItem方法
+
+```if (!found) {
+            // Search on any of the screens starting from the first screen.
+            for (int screen = 0; screen < screenCount; screen++) {
+                screenId = workspaceScreens.get(screen);
+                if (findNextAvailableIconSpaceInScreen(
+                        app, screenItems.get(screenId), cordinates, spanX, spanY)) {
+                    // We found a space for it
+                    found = true;
+                    break;
+                }
+            }
+        }
+```
+记录，后续更新...
+## Thanks
+[大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][1]
+
+[1]: https://blog.csdn.net/yxdspirit/article/details/84634454
