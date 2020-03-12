@@ -36,6 +36,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -114,7 +115,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
 
     private final AccessibilityHelper mAccessibilityHelper;
     @Nullable
-    protected Drawable mDragHandle;
+    protected Drawable mDragHandle = new ColorDrawable(Color.TRANSPARENT);
 
     private int mDragHandleAlpha = 255;
 
