@@ -301,6 +301,11 @@ Launcher修改
             }
         }
 ```
+### 6.去除向上小箭头
+修改ScrimView的mDragHandle初始化。
+
+```protected Drawable mDragHandle = new ColorDrawable(Color.TRANSPARENT);```
+
 记录，后续更新...
 ## Thanks
 [大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][1]
