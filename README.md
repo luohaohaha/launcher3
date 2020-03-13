@@ -1,4 +1,4 @@
-# Launcher3客制化记录
+# Launcher3客制化记录（基于Android P）
 ### 1.去除搜索页(第一屏)
 
 BaseFlags类里面修改
@@ -306,7 +306,28 @@ Launcher修改
 
 ```protected Drawable mDragHandle = new ColorDrawable(Color.TRANSPARENT);```
 
+### 7.App显示过滤
+配置在assets/app_default_filter下面，根据包名过滤
+实现在AppFilter的shouldShowApp方法
+
+### 8.hotseat禁用文件夹
+Workspace类的createUserFolderIfNecessary方法
+
+```if(LauncherSettings.Favorites.CONTAINER_HOTSEAT == container) return false;```
+
+---
+- [x] 去除搜索，去除第一页
+- [x] 应用移到桌面(单层桌面)
+- [x] 去除向上小箭头
+- [x] app过滤
+- [x] hotseat禁用文件夹
+- [ ] 桌面应用卸载重排序
+- [ ] 修复应用自身生成shortcut导致图标重复
+- [ ] 默认壁纸不影响壁纸更换
+
 记录，后续更新...
+
+
 ## Thanks
 [大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][1]
 
