@@ -328,6 +328,7 @@ Workspace类的createUserFolderIfNecessary方法
 记录，后续更新...
 
 
+
 ## Thanks
 [大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][1]
 
