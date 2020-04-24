@@ -61,34 +61,20 @@
         <favorite launcher:uri="#Intent;type=images/*;end" />
     </resolve>-->
 
-    <favorite
-        launcher:className="com.tencent.mobileqq.activity.SplashActivity"
-        launcher:container="-101"
-        launcher:packageName="com.tencent.mobileqq"
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="0" />
-    <favorite
-        launcher:className="com.tencent.mm.ui.LauncherUI"
-        launcher:container="-101"
-        launcher:packageName="com.tencent.mm"
-        launcher:screen="1"
-        launcher:x="1"
-        launcher:y="1" />
     <resolve
         launcher:container="-101"
-        launcher:screen="2"
-        launcher:x="2"
-        launcher:y="2">
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="0">
         <favorite launcher:uri="#Intent;action=android.settings.SETTINGS;end" />
     </resolve>
     <favorite
         launcher:className="com.android.documentsui.FilesActivity"
         launcher:container="-101"
         launcher:packageName="com.android.documentsui"
-        launcher:screen="3"
-        launcher:x="3"
-        launcher:y="3" />
+        launcher:screen="1"
+        launcher:x="1"
+        launcher:y="1" />
     <!--
         <favorite
             launcher:className="com.yijianwan.kaifaban.activity.activity_welcome"
@@ -97,11 +83,26 @@
             launcher:screen="3"
             launcher:x="3"
             launcher:y="3" />
+
     -->
     <favorite
-        launcher:className="com.android.browser.BrowserActivity"
+        launcher:className="com.hs.appmarket_master.SplashActivity"
         launcher:container="-101"
-        launcher:packageName="com.android.browser"
+        launcher:packageName="com.hs.appmarket_master"
+        launcher:screen="2"
+        launcher:x="2"
+        launcher:y="2" />
+    <favorite
+        launcher:className="com.tencent.assistant.activity.SplashImplActivity"
+        launcher:container="-101"
+        launcher:packageName="com.tencent.android.qqdownloader"
+        launcher:screen="3"
+        launcher:x="3"
+        launcher:y="3" />
+    <favorite
+        launcher:className="com.gray.boxmaster.ui.MainActivity"
+        launcher:container="-101"
+        launcher:packageName="com.gray.boxmaster"
         launcher:screen="4"
         launcher:x="4"
         launcher:y="4" />

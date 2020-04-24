@@ -5,5 +5,8 @@
   "com.android.camera",
   "com.android.contacts",
   "com.android.dialer",
-  "com.android.messaging"
+  "com.android.messaging",
+  "com.android.music",
+  "com.android.soundrecorder",
+  "com.android.browser"
 ]
