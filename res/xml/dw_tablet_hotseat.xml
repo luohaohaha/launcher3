@@ -60,21 +60,28 @@
         <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
         <favorite launcher:uri="#Intent;type=images/*;end" />
     </resolve>-->
-
-    <resolve
+    <favorite
+        launcher:className="com.android.contacts.activities.PeopleActivity"
         launcher:container="-101"
+        launcher:packageName="com.android.contacts"
         launcher:screen="0"
         launcher:x="0"
-        launcher:y="0">
-        <favorite launcher:uri="#Intent;action=android.settings.SETTINGS;end" />
-    </resolve>
+        launcher:y="0" />
+
     <favorite
-        launcher:className="com.android.documentsui.FilesActivity"
+        launcher:className="com.android.documentsui.LauncherActivity"
         launcher:container="-101"
         launcher:packageName="com.android.documentsui"
         launcher:screen="1"
         launcher:x="1"
         launcher:y="1" />
+    <resolve
+        launcher:container="-101"
+        launcher:screen="2"
+        launcher:x="2"
+        launcher:y="2">
+        <favorite launcher:uri="#Intent;action=android.settings.SETTINGS;end" />
+    </resolve>
     <!--
         <favorite
             launcher:className="com.yijianwan.kaifaban.activity.activity_welcome"
@@ -86,23 +93,16 @@
 
     -->
     <favorite
-        launcher:className="com.hs.appmarket_master.SplashActivity"
-        launcher:container="-101"
-        launcher:packageName="com.hs.appmarket_master"
-        launcher:screen="2"
-        launcher:x="2"
-        launcher:y="2" />
-    <favorite
-        launcher:className="com.tencent.assistant.activity.SplashImplActivity"
+        launcher:className="com.tencent.pangu.link.SplashActivity"
         launcher:container="-101"
         launcher:packageName="com.tencent.android.qqdownloader"
         launcher:screen="3"
         launcher:x="3"
         launcher:y="3" />
     <favorite
-        launcher:className="com.gray.boxmaster.ui.MainActivity"
+        launcher:className="com.tencent.mtt.SplashActivity"
         launcher:container="-101"
-        launcher:packageName="com.gray.boxmaster"
+        launcher:packageName="com.tencent.mtt"
         launcher:screen="4"
         launcher:x="4"
         launcher:y="4" />
