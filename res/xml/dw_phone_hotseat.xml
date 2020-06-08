@@ -61,17 +61,17 @@
         <favorite launcher:uri="#Intent;type=images/*;end" />
     </resolve>-->
     <favorite
-        launcher:className="com.android.contacts.activities.PeopleActivity"
+        launcher:className="com.tencent.mm.ui.LauncherUI"
         launcher:container="-101"
-        launcher:packageName="com.android.contacts"
+        launcher:packageName="com.tencent.mm"
         launcher:screen="0"
         launcher:x="0"
         launcher:y="0" />
 
     <favorite
-        launcher:className="com.android.documentsui.LauncherActivity"
+        launcher:className="com.tencent.mobileqq.activity.SplashActivity"
         launcher:container="-101"
-        launcher:packageName="com.android.documentsui"
+        launcher:packageName="com.tencent.mobileqq"
         launcher:screen="1"
         launcher:x="1"
         launcher:y="1" />
@@ -100,9 +100,9 @@
         launcher:x="3"
         launcher:y="3" />
     <favorite
-        launcher:className="com.tencent.mtt.SplashActivity"
+        launcher:className="com.ucpro.MainActivity"
         launcher:container="-101"
-        launcher:packageName="com.tencent.mtt"
+        launcher:packageName="com.quark.browser"
         launcher:screen="4"
         launcher:x="4"
         launcher:y="4" />

@@ -7,5 +7,8 @@
   "com.android.messaging",
   "com.android.music",
   "com.android.soundrecorder",
-  "com.android.browser"
+  "com.android.browser",
+  "org.chromium.webview_shell",
+  "com.android.quicksearchbox",
+  "com.android.email"
 ]
