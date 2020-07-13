@@ -266,7 +266,8 @@ public class DeviceProfile {
      * It is important to call this method after the All Apps variables have been set.
      */
     private void adjustToHideWorkspaceLabels() {
-        iconTextSizePx = 0;
+        //modify luohao  2020-07-13
+        /*iconTextSizePx = 0;
         iconDrawablePaddingPx = 0;
         cellHeightPx = iconSizePx;
 
@@ -276,7 +277,7 @@ public class DeviceProfile {
         int topBottomPadding = allAppsIconDrawablePaddingPx * (isVerticalBarLayout() ? 2 : 1);
         allAppsCellHeightPx = allAppsIconSizePx + allAppsIconDrawablePaddingPx
                 + Utilities.calculateTextHeight(allAppsIconTextSizePx)
-                + topBottomPadding * 2;
+                + topBottomPadding * 2;*/
     }
 
     private void updateAvailableDimensions(DisplayMetrics dm, Resources res) {
