@@ -315,12 +315,16 @@ Workspace类的createUserFolderIfNecessary方法
 
 ```if(LauncherSettings.Favorites.CONTAINER_HOTSEAT == container) return false;```
 
----
+### 9.横竖屏支持(临时解决方案)
+DeviceProfile类的adjustToHideWorkspaceLabels方法全注释(不知道为什么launcher3横屏要隐藏text)
+
+-------------------------------------------------
 - [x] 去除搜索，去除第一页
 - [x] 应用移到桌面(单层桌面)
 - [x] 去除向上小箭头
 - [x] app过滤
 - [x] hotseat禁用文件夹
+- [x] 支持横竖屏
 - [ ] 桌面应用卸载重排序
 - [ ] 修复应用自身生成shortcut导致图标重复
 - [ ] 默认壁纸不影响壁纸更换
