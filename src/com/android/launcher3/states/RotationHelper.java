@@ -143,6 +143,7 @@ public class RotationHelper implements OnSharedPreferenceChangeListener {
         } else {
             // If auto rotation is off, allow rotation on the activity, in case the user is using
             // forced rotation.
+            ////modify luohao  2020-07-13
             activityFlags = SCREEN_ORIENTATION_USER;
         }
         if (activityFlags != mLastActivityFlags) {
