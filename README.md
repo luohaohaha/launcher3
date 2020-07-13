@@ -316,6 +316,7 @@ Workspace类的createUserFolderIfNecessary方法
 ```if(LauncherSettings.Favorites.CONTAINER_HOTSEAT == container) return false;```
 
 ### 9.横竖屏支持(临时解决方案)
+AndroidManifest Launcher开启横竖屏 android:screenOrientation="sensor"
 DeviceProfile类的adjustToHideWorkspaceLabels方法全注释(不知道为什么launcher3横屏要隐藏text)
 
 -------------------------------------------------
