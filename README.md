@@ -316,10 +316,38 @@ Workspace类的createUserFolderIfNecessary方法
 ```if(LauncherSettings.Favorites.CONTAINER_HOTSEAT == container) return false;```
 
 ### 9.横竖屏支持(临时解决方案)
-AndroidManifest Launcher开启横竖屏 android:screenOrientation="sensor"
-DeviceProfile类的adjustToHideWorkspaceLabels方法全注释(不知道为什么launcher3横屏要隐藏text)
+AndroidManifest Launcher开启横竖屏 android:screenOrientation="user"
 
--------------------------------------------------
+RotationHelper类notifyChange方法 else return SCREEN_ORIENTATION_USER
+
+DeviceProfile类的adjustToHideWorkspaceLabels方法全注释(不知道为什么launcher3横屏要隐藏text)
+```
+private void notifyChange() {
+        if (!mInitialized || mDestroyed) {
+            return;
+        }
+
+        final int activityFlags;
+        if (mStateHandlerRequest != REQUEST_NONE) {
+            activityFlags = mStateHandlerRequest == REQUEST_LOCK ?
+                    SCREEN_ORIENTATION_LOCKED : SCREEN_ORIENTATION_UNSPECIFIED;
+        } else if (mCurrentStateRequest == REQUEST_LOCK) {
+            activityFlags = SCREEN_ORIENTATION_LOCKED;
+        } else if (mIgnoreAutoRotateSettings || mCurrentStateRequest == REQUEST_ROTATE
+                || mAutoRotateEnabled) {
+            activityFlags = SCREEN_ORIENTATION_UNSPECIFIED;
+        } else {
+            // If auto rotation is off, allow rotation on the activity, in case the user is using
+            // forced rotation.
+            activityFlags = SCREEN_ORIENTATION_USER;
+        }
+        if (activityFlags != mLastActivityFlags) {
+            mLastActivityFlags = activityFlags;
+            mActivity.setRequestedOrientation(activityFlags);
+        }
+    }
+```
+---
 - [x] 去除搜索，去除第一页
 - [x] 应用移到桌面(单层桌面)
 - [x] 去除向上小箭头
