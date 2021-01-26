@@ -367,6 +367,6 @@ private void notifyChange() {
 
 
 ## Thanks
-[大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][1]
+[大木头_的帖子——android P (9.0) Launcher3 去掉抽屉式,显示所有app][2]
 
-[1]: https://blog.csdn.net/yxdspirit/article/details/84634454
+[2]: https://blog.csdn.net/yxdspirit/article/details/84634454
