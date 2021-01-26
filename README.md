@@ -1,4 +1,8 @@
 # Launcher3客制化记录（基于Android P）
+
+### [AOSP地址][1]
+[1]: https://android.googlesource.com/platform/packages/apps/Launcher3/
+
 ### 1.去除搜索页(第一屏)
 
 BaseFlags类里面修改
