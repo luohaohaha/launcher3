@@ -15,19 +15,25 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 
 android {
+
+    lintOptions {
+        checkReleaseBuilds false
+        //If you want to continue even if errors found use following line
+        abortOnError false
+    }
     compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-        debug {
+        relsease {
             minifyEnabled false
         }
     }
@@ -46,17 +52,17 @@ android {
             testApplicationId 'com.android.launcher3.tests'
         }
 
-        l3go {
-            dimension "default"
-            applicationId 'com.android.launcher3'
-            testApplicationId 'com.android.launcher3.tests'
-        }
+        /* l3go {
+             dimension "default"
+             applicationId 'com.android.launcher3'
+             testApplicationId 'com.android.launcher3.tests'
+         }
 
-        quickstep {
-            dimension "default"
-            applicationId 'com.android.launcher3'
-            testApplicationId 'com.android.launcher3.tests'
-        }
+         quickstep {
+             dimension "default"
+             applicationId 'com.android.launcher3'
+             testApplicationId 'com.android.launcher3.tests'
+         }*/
     }
 
     // Disable release builds for now
@@ -94,25 +100,27 @@ android {
 
         aosp {
             java.srcDirs = ['src_flags', "src_ui_overrides"]
+            manifest.srcFile "AndroidManifest.xml"
         }
 
-        l3go {
-            res.srcDirs = ['go/res']
-            java.srcDirs = ['go/src_flags', "src_ui_overrides"]
-            manifest.srcFile "go/AndroidManifest.xml"
-        }
+        /* l3go {
+             res.srcDirs = ['go/res']
+             java.srcDirs = ['go/src_flags', "src_ui_overrides"]
+             manifest.srcFile "go/AndroidManifest.xml"
+         }
 
-        quickstep {
-            res.srcDirs = ['quickstep/res']
-            java.srcDirs = ['src_flags', 'quickstep/src']
-            manifest.srcFile "quickstep/AndroidManifest.xml"
-        }
+         quickstep {
+             res.srcDirs = ['quickstep/res']
+             java.srcDirs = ['src_flags', 'quickstep/src']
+             manifest.srcFile "quickstep/AndroidManifest.xml"
+         }*/
     }
 }
 
 repositories {
     maven { url "../../../prebuilts/fullsdk-darwin/extras/android/m2repository" }
     maven { url "../../../prebuilts/fullsdk-linux/extras/android/m2repository" }
+    maven { url 'https://jitpack.io' }
     mavenCentral()
     google()
 }
@@ -122,8 +130,12 @@ dependencies {
     implementation "com.android.support:support-dynamic-animation:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:recyclerview-v7:${SUPPORT_LIBS_VERSION}"
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.2.0rc2'
+    implementation("com.squareup.okhttp3:okhttp:4.8.0")
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-    quickstepImplementation fileTree(dir: "quickstep/libs", include: 'sysui_shared.jar')
+//    quickstepImplementation fileTree(dir: "quickstep/libs", include: 'sysui_shared.jar')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "org.mockito:mockito-core:2.15.0"
@@ -138,7 +150,11 @@ dependencies {
 protobuf {
     // Configure the protoc executable
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
+        if (osdetector.os == "osx") {
+            artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3:osx-x86_64'
+        } else {
+            artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
+        }
 
         generateProtoTasks {
             all().each { task ->
