@@ -93,9 +93,9 @@
 
     -->
     <favorite
-        launcher:className="com.tencent.pangu.link.SplashActivity"
+        launcher:className="com.tencent.qqpinyin.activity.guide.SplashActivity"
         launcher:container="-101"
-        launcher:packageName="com.tencent.android.qqdownloader"
+        launcher:packageName="com.tencent.qqpinyin"
         launcher:screen="3"
         launcher:x="3"
         launcher:y="3" />

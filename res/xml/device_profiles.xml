@@ -55,7 +55,7 @@
         launcher:numFolderColumns="4"
         launcher:iconSize="48"
         launcher:iconTextSize="13.0"
-        launcher:numHotseatIcons="5"
+        launcher:numHotseatIcons="4"
         launcher:defaultLayoutId="@xml/default_workspace_4x4"
         />
 
@@ -69,7 +69,7 @@
         launcher:numFolderColumns="4"
         launcher:iconSize="48"
         launcher:iconTextSize="13.0"
-        launcher:numHotseatIcons="5"
+        launcher:numHotseatIcons="4"
         launcher:defaultLayoutId="@xml/default_workspace_4x4"
         />
 
@@ -83,7 +83,7 @@
         launcher:numFolderColumns="4"
         launcher:iconSize="48"
         launcher:iconTextSize="13.0"
-        launcher:numHotseatIcons="5"
+        launcher:numHotseatIcons="4"
         launcher:defaultLayoutId="@xml/default_workspace_4x4"
         />
 
@@ -91,13 +91,13 @@
         launcher:name="Nexus 4"
         launcher:minWidthDps="359"
         launcher:minHeightDps="567"
-        launcher:numRows="4"
+        launcher:numRows="5"
         launcher:numColumns="4"
         launcher:numFolderRows="4"
         launcher:numFolderColumns="4"
         launcher:iconSize="54"
         launcher:iconTextSize="13.0"
-        launcher:numHotseatIcons="5"
+        launcher:numHotseatIcons="4"
         launcher:defaultLayoutId="@xml/default_workspace_4x4"
         />
 
@@ -105,13 +105,13 @@
         launcher:name="Nexus 5"
         launcher:minWidthDps="335"
         launcher:minHeightDps="567"
-        launcher:numRows="4"
+        launcher:numRows="5"
         launcher:numColumns="4"
         launcher:numFolderRows="4"
         launcher:numFolderColumns="4"
         launcher:iconSize="54"
         launcher:iconTextSize="13.0"
-        launcher:numHotseatIcons="5"
+        launcher:numHotseatIcons="4"
         launcher:defaultLayoutId="@xml/default_workspace_4x4"
         />
 
@@ -120,13 +120,13 @@
         launcher:minWidthDps="406"
         launcher:minHeightDps="694"
         launcher:numRows="5"
-        launcher:numColumns="5"
+        launcher:numColumns="4"
         launcher:numFolderRows="4"
         launcher:numFolderColumns="4"
-        launcher:iconSize="56"
-        launcher:iconTextSize="14.4"
-        launcher:numHotseatIcons="5"
-        launcher:defaultLayoutId="@xml/default_workspace_5x5"
+        launcher:iconSize="54"
+        launcher:iconTextSize="13"
+        launcher:numHotseatIcons="4"
+        launcher:defaultLayoutId="@xml/default_workspace_4x5"
         />
 
     <profile

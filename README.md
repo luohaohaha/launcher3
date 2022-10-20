@@ -1,5 +1,7 @@
 # Launcher3客制化记录（基于Android P）
 
+![](https://github.com/luohaohaha/launcher3/images/Screenshot_20221020_183945)
+
 ### [AOSP地址][1]
 [1]: https://android.googlesource.com/platform/packages/apps/Launcher3/
 
@@ -358,9 +360,9 @@ private void notifyChange() {
 - [x] app过滤
 - [x] hotseat禁用文件夹
 - [x] 支持横竖屏
+- [x] 默认壁纸不影响壁纸更换
 - [ ] 桌面应用卸载重排序
 - [ ] 修复应用自身生成shortcut导致图标重复
-- [ ] 默认壁纸不影响壁纸更换
 
 记录，后续更新...
 

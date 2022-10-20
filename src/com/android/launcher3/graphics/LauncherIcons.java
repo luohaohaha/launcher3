@@ -30,7 +30,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.AdaptiveIconDrawable;
@@ -56,6 +59,9 @@ import com.android.launcher3.shortcuts.DeepShortcutManager;
 import com.android.launcher3.shortcuts.ShortcutInfoCompat;
 import com.android.launcher3.util.Provider;
 import com.android.launcher3.util.Themes;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Helper methods for generating various launcher icons
@@ -192,7 +198,7 @@ public class LauncherIcons implements AutoCloseable {
      */
     public BitmapInfo createBadgedIconBitmap(Drawable icon, UserHandle user, int iconAppTargetSdk,
             boolean isInstantApp) {
-        float[] scale = new float[1];
+       /* float[] scale = new float[1];
         icon = normalizeAndWrapToAdaptiveIcon(icon, iconAppTargetSdk, null, scale);
         Bitmap bitmap = createIconBitmap(icon, scale[0]);
         if (Utilities.ATLEAST_OREO && icon instanceof AdaptiveIconDrawable) {
@@ -200,9 +206,9 @@ public class LauncherIcons implements AutoCloseable {
             getShadowGenerator().recreateIcon(Bitmap.createBitmap(bitmap), mCanvas);
             mCanvas.setBitmap(null);
         }
-
-        final Bitmap result;
-        if (user != null && !Process.myUserHandle().equals(user)) {
+*/
+        final Bitmap result = drawableToBitmap(icon,mIconBitmapSize,mIconBitmapSize);
+       /* if (user != null && !Process.myUserHandle().equals(user)) {
             BitmapDrawable drawable = new FixedSizeBitmapDrawable(bitmap);
             Drawable badged = mPm.getUserBadgedIcon(drawable, user);
             if (badged instanceof BitmapDrawable) {
@@ -215,7 +221,7 @@ public class LauncherIcons implements AutoCloseable {
             result = bitmap;
         } else {
             result = bitmap;
-        }
+        }*/
         return BitmapInfo.fromBitmap(result);
     }
 
@@ -290,7 +296,10 @@ public class LauncherIcons implements AutoCloseable {
      * @param scale the scale to apply before drawing {@param icon} on the canvas
      */
     private Bitmap createIconBitmap(Drawable icon, float scale) {
-        int width = mIconBitmapSize;
+        final int iconBitmapSize = LauncherAppState.getIDP(mContext).iconBitmapSize;
+        float scaleM = (iconBitmapSize - iconBitmapSize * scale) / 2;
+
+       /* int width = mIconBitmapSize;
         int height = mIconBitmapSize;
 
         if (icon instanceof PaintDrawable) {
@@ -321,29 +330,80 @@ public class LauncherIcons implements AutoCloseable {
         int textureWidth = mIconBitmapSize;
         int textureHeight = mIconBitmapSize;
 
-        Bitmap bitmap = Bitmap.createBitmap(textureWidth, textureHeight,
+        Bitmap bitmap = Bitmap.createBitmap(textureWidth,textureHeight,
                 Bitmap.Config.ARGB_8888);
         mCanvas.setBitmap(bitmap);
 
-        final int left = (textureWidth-width) / 2;
-        final int top = (textureHeight-height) / 2;
+        final int left = 0;
+        final int top = 0;
 
         mOldBounds.set(icon.getBounds());
         if (Utilities.ATLEAST_OREO && icon instanceof AdaptiveIconDrawable) {
             int offset = Math.max((int) Math.ceil(BLUR_FACTOR * textureWidth), Math.max(left, top));
             int size = Math.max(width, height);
-            icon.setBounds(offset, offset, offset + size, offset + size);
+            icon.setBounds(0, 0, mIconBitmapSize, mIconBitmapSize);
         } else {
-            icon.setBounds(left, top, left+width, top+height);
+            icon.setBounds(left, top, left + width, top + height);
         }
         mCanvas.save();
         mCanvas.scale(scale, scale, textureWidth / 2, textureHeight / 2);
         icon.draw(mCanvas);
         mCanvas.restore();
         icon.setBounds(mOldBounds);
-        mCanvas.setBitmap(null);
+        mCanvas.setBitmap(null);*/
+        Bitmap bitmap = drawableToBitmap(icon, mIconBitmapSize,mIconBitmapSize);
 
+        bitmap = getRoundedBitmap(bitmap, scaleM);
+        try (FileOutputStream out = new FileOutputStream("sdcard/"+icon.toString()+".png")) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return bitmap;
+    }
+
+    public  Bitmap drawableToBitmap (Drawable drawable , int width , int height) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        int intrinsicWidth = width;
+        int intrinsicHeight = height;
+        if(intrinsicWidth <= 0 || intrinsicHeight <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, intrinsicWidth, intrinsicHeight);
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    private Bitmap getRoundedBitmap(Bitmap mBitmap, float scaleM) {
+        Bitmap bgBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = mCanvas;
+        canvas.setBitmap(bgBitmap);
+        Paint mPaint = new Paint();
+        RectF mRectM = new RectF(scaleM, scaleM, mBitmap.getWidth() - scaleM, mBitmap.getHeight() - scaleM); //设置剪裁圆角的区域
+        Rect mRect = new Rect(0, 0, mBitmap.getWidth(), mBitmap.getHeight());
+        RectF mRectF = mRectM;
+
+        float roundPx = Utilities.pxFromDp(8, mContext.getResources().getDisplayMetrics());    //圆角半径
+        mPaint.setAntiAlias(true);
+        //Log.d("wy"+TAG,"mBitmap.getWidth()="+mBitmap.getWidth()+", mBitmap.getHeight()="+mBitmap.getHeight());
+        canvas.drawRoundRect(mRectF, roundPx, roundPx, mPaint);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(mBitmap, mRect, mRect, mPaint);
+        return bgBitmap;
     }
 
     public BitmapInfo createShortcutIcon(ShortcutInfoCompat shortcutInfo) {
