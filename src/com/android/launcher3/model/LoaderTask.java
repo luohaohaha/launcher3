@@ -19,6 +19,7 @@ package com.android.launcher3.model;
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_LOCKED_USER;
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_SAFEMODE;
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_SUSPENDED;
+import static com.android.launcher3.LauncherProvider.EMPTY_DATABASE_CREATED;
 import static com.android.launcher3.folder.ClippedFolderIconLayoutRule.MAX_NUM_ITEMS_IN_PREVIEW;
 import static com.android.launcher3.model.LoaderResults.filterCurrentWorkspaceItems;
 
@@ -255,16 +256,18 @@ public class LoaderTask implements Runnable {
             // Migration failed. Clear workspace.
             clearDb = true;
         }
-
-        if (clearDb) {
+        boolean  createTable = Utilities.getPrefs(mApp.getContext()).getBoolean(EMPTY_DATABASE_CREATED,true);
+        if (createTable) {
             Log.d(TAG, "loadWorkspace: resetting launcher database");
             LauncherSettings.Settings.call(contentResolver,
                     LauncherSettings.Settings.METHOD_CREATE_EMPTY_DB);
         }
 
-        Log.d(TAG, "loadWorkspace: loading default favorites");
-        LauncherSettings.Settings.call(contentResolver,
-                LauncherSettings.Settings.METHOD_LOAD_DEFAULT_FAVORITES);
+        if (createTable) {
+            Log.d(TAG, "loadWorkspace: loading default favorites");
+            LauncherSettings.Settings.call(contentResolver,
+                    LauncherSettings.Settings.METHOD_LOAD_DEFAULT_FAVORITES);
+        }
 
         synchronized (mBgDataModel) {
             mBgDataModel.clear();
@@ -323,7 +326,7 @@ public class LoaderTask implements Runnable {
                     unlockedUsers.put(serialNo, userUnlocked);
                 }
 
-                ShortcutInfo info;
+                ShortcutInfo info = null;
                 LauncherAppWidgetInfo appWidgetInfo;
                 Intent intent;
                 String targetPkg;
@@ -695,6 +698,9 @@ public class LoaderTask implements Runnable {
                                 c.checkAndAddItem(appWidgetInfo, mBgDataModel);
                             }
                             break;
+                        }
+                        if( null != info && !mBgDataModel.itemsIdMap.containsKey(info.id)){
+                            mBgDataModel.addItem(mApp.getContext(), info,true);
                         }
                     } catch (Exception e) {
                         Log.e(TAG, "Desktop items loading interrupted", e);

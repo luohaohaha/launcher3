@@ -86,7 +86,7 @@ public class LauncherProvider extends ContentProvider {
 
     public static final String AUTHORITY = FeatureFlags.AUTHORITY;
 
-    static final String EMPTY_DATABASE_CREATED = "EMPTY_DATABASE_CREATED";
+    public static final String EMPTY_DATABASE_CREATED = "EMPTY_DATABASE_CREATED";
 
     private static final String RESTRICTION_PACKAGE_NAME = "workspace.configuration.package.name";
 
@@ -494,7 +494,8 @@ public class LauncherProvider extends ContentProvider {
                 mOpenHelper.loadFavorites(mOpenHelper.getWritableDatabase(),
                         getDefaultLayoutParser(widgetHost));
             }
-            clearFlagEmptyDbCreated();
+//            clearFlagEmptyDbCreated();
+            sp.edit().putBoolean(EMPTY_DATABASE_CREATED,false).commit();
         }
     }
 
