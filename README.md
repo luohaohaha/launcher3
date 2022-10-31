@@ -361,6 +361,7 @@ private void notifyChange() {
 - [x] hotseat禁用文件夹
 - [x] 支持横竖屏
 - [x] 默认壁纸不影响壁纸更换
+- [x] 重启保留原始(移动)位置
 - [ ] 桌面应用卸载重排序
 - [ ] 修复应用自身生成shortcut导致图标重复
 
