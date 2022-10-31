@@ -134,7 +134,7 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
             if( null == itemInfo || null == targetComponent || TextUtils.isEmpty(targetComponent.getPackageName()))
                 return  null;
             String packageName = targetComponent.getPackageName();
-            if(!Utilities.isAppInstalled(activity, packageName))
+            if(!Utilities.isAppInstalled(activity, packageName) || Utilities.isSystemApp(activity,itemInfo.getIntent()))
                 return null;
             return createOnClickListener(activity, itemInfo);
         }
