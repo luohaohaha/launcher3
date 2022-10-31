@@ -17,12 +17,19 @@
 package com.android.launcher3.popup;
 
 import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
+import com.android.launcher3.AbstractFloatingView;
+import com.android.launcher3.BaseDraggingActivity;
 import com.android.launcher3.ItemInfo;
 import com.android.launcher3.Launcher;
+import com.android.launcher3.R;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.badge.BadgeInfo;
 import com.android.launcher3.model.WidgetItem;
@@ -53,7 +60,7 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
     private static final SystemShortcut[] SYSTEM_SHORTCUTS = new SystemShortcut[] {
             new SystemShortcut.AppInfo(),
             new SystemShortcut.Widgets(),
-            new SystemShortcut.Install()
+            new SystemShortcut.UnInstall()
     };
 
     private final Launcher mLauncher;

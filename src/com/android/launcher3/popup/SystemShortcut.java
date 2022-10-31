@@ -3,9 +3,12 @@ package com.android.launcher3.popup;
 import static com.android.launcher3.userevent.nano.LauncherLogProto.Action;
 import static com.android.launcher3.userevent.nano.LauncherLogProto.ControlType;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.android.launcher3.AbstractFloatingView;
@@ -14,6 +17,7 @@ import com.android.launcher3.ItemInfo;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.R;
 import com.android.launcher3.ShortcutInfo;
+import com.android.launcher3.Utilities;
 import com.android.launcher3.model.WidgetItem;
 import com.android.launcher3.util.InstantAppResolver;
 import com.android.launcher3.util.PackageManagerHelper;
@@ -112,6 +116,41 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
             return view -> {
                 Intent intent = new PackageManagerHelper(view.getContext()).getMarketIntent(
                         itemInfo.getTargetComponent().getPackageName());
+                activity.startActivitySafely(view, intent, itemInfo);
+                AbstractFloatingView.closeAllOpenViews(activity);
+            };
+        }
+    }
+
+    public static class UnInstall extends SystemShortcut {
+        public UnInstall() {
+            super(R.drawable.ic_uninstall_no_shadow, R.string.uninstall_drop_target_label);
+        }
+
+        @Override
+        public View.OnClickListener getOnClickListener(
+                BaseDraggingActivity activity, ItemInfo itemInfo) {
+            ComponentName targetComponent = itemInfo.getTargetComponent();
+            if( null == itemInfo || null == targetComponent || TextUtils.isEmpty(targetComponent.getPackageName()))
+                return  null;
+            String packageName = targetComponent.getPackageName();
+            if(!Utilities.isAppInstalled(activity, packageName))
+                return null;
+            return createOnClickListener(activity, itemInfo);
+        }
+
+        public View.OnClickListener createOnClickListener(
+                BaseDraggingActivity activity, ItemInfo itemInfo) {
+            return view -> {
+                ComponentName cn = itemInfo.getTargetComponent();
+                Intent intent = null;
+                try {
+                    intent = Intent.parseUri(activity.getString(R.string.delete_package_intent), 0)
+                            .setData(Uri.fromParts("package", cn.getPackageName(), cn.getClassName()))
+                            .putExtra(Intent.EXTRA_USER, itemInfo.user);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 activity.startActivitySafely(view, intent, itemInfo);
                 AbstractFloatingView.closeAllOpenViews(activity);
             };

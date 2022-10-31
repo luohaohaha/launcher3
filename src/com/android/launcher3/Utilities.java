@@ -607,4 +607,16 @@ public final class Utilities {
         drawable.draw(canvas);
         return bitmap;
     }
+
+    public static boolean isAppInstalled(Context context , String pkgName) {
+        if (TextUtils.isEmpty(pkgName))
+            return false;
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(pkgName, 0);
+            return null != packageInfo;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
