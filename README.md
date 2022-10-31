@@ -1,6 +1,6 @@
 # Launcher3客制化记录（基于Android P）
 
-![ ](https://github.com/luohaohaha/launcher3/blob/bamen/images/Screenshot_20221020_183945.png)
+![ ](https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20221020_183945.png)
 
 ### [AOSP地址][1]
 [1]: https://android.googlesource.com/platform/packages/apps/Launcher3/
