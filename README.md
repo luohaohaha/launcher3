@@ -4,6 +4,9 @@
 ### [AOSP地址][1]
 [1]: https://android.googlesource.com/platform/packages/apps/Launcher3/
 
+#### AOSP效果
+<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20230112_015047.png" alt="" width="270"/>
+
 ### 1.去除搜索页(第一屏)
 
 BaseFlags类里面修改
