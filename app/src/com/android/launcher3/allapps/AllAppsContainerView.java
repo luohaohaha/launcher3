@@ -287,7 +287,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
             mAH[i].applyPadding();
         }
 
-        ViewGroup.MarginLayoutParams mlp = (MarginLayoutParams) getLayoutParams();
+        MarginLayoutParams mlp = (MarginLayoutParams) getLayoutParams();
         if (grid.isVerticalBarLayout()) {
             mlp.leftMargin = insets.left;
             mlp.rightMargin = insets.right;
@@ -405,7 +405,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
 
     public void setupHeader() {
         mHeader.setVisibility(View.VISIBLE);
-        mHeader.setup(mAH, mAH[AllAppsContainerView.AdapterHolder.WORK].recyclerView == null);
+        mHeader.setup(mAH, mAH[AdapterHolder.WORK].recyclerView == null);
 
         int padding = mHeader.getMaxTranslation();
         for (int i = 0; i < mAH.length; i++) {

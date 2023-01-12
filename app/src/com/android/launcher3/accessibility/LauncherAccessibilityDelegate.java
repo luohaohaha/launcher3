@@ -193,7 +193,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
             final int[] coordinates = new int[2];
             final long screenId = findSpaceOnWorkspace(item, coordinates);
             mLauncher.getModelWriter().moveItemInDatabase(info,
-                    LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                    Favorites.CONTAINER_DESKTOP,
                     screenId, coordinates[0], coordinates[1]);
 
             // Bind the item in next frame so that if a new workspace page was created,

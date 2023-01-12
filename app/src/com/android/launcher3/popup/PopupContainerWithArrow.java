@@ -263,7 +263,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
         reorderAndShow(viewsToFlip);
 
         ItemInfo originalItemInfo = (ItemInfo) originalIcon.getTag();
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             setAccessibilityPaneTitle(getTitleForAccessibility());
         }
 
@@ -344,7 +344,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
     protected void onWidgetsBound() {
         ItemInfo itemInfo = (ItemInfo) mOriginalIcon.getTag();
         SystemShortcut widgetInfo = new SystemShortcut.Widgets();
-        View.OnClickListener onClickListener = widgetInfo.getOnClickListener(mLauncher, itemInfo);
+        OnClickListener onClickListener = widgetInfo.getOnClickListener(mLauncher, itemInfo);
         View widgetsView = null;
         int count = mSystemShortcutContainer.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -412,7 +412,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
             }
 
             @Override
-            public void onPreDragStart(DropTarget.DragObject dragObject) {
+            public void onPreDragStart(DragObject dragObject) {
                 if (mIsAboveIcon) {
                     // Hide only the icon, keep the text visible.
                     mOriginalIcon.setIconVisible(false);
@@ -424,7 +424,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
             }
 
             @Override
-            public void onPreDragEnd(DropTarget.DragObject dragObject, boolean dragStarted) {
+            public void onPreDragEnd(DragObject dragObject, boolean dragStarted) {
                 mOriginalIcon.setIconVisible(true);
                 if (dragStarted) {
                     // Make sure we keep the original icon hidden while it is being dragged.
@@ -483,7 +483,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
     public void onDropCompleted(View target, DragObject d, boolean success) {  }
 
     @Override
-    public void onDragStart(DropTarget.DragObject dragObject, DragOptions options) {
+    public void onDragStart(DragObject dragObject, DragOptions options) {
         // Either the original icon or one of the shortcuts was dragged.
         // Hide the container, but don't remove it yet because that interferes with touch events.
         mDeferContainerRemoval = true;

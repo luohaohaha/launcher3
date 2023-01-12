@@ -77,7 +77,7 @@ public class DefaultLayoutParser extends AutoInstallsLayout {
 
     @Override
     protected void parseContainerAndScreen(XmlResourceParser parser, long[] out) {
-        out[0] = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+        out[0] = Favorites.CONTAINER_DESKTOP;
         String strContainer = getAttributeValue(parser, ATTR_CONTAINER);
         if (strContainer != null) {
             out[0] = Long.valueOf(strContainer);

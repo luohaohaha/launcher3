@@ -97,13 +97,13 @@ public class IconNormalizer {
         mPaintMaskShape = new Paint();
         mPaintMaskShape.setColor(Color.RED);
         mPaintMaskShape.setStyle(Paint.Style.FILL);
-        mPaintMaskShape.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.XOR));
+        mPaintMaskShape.setXfermode(new PorterDuffXfermode(Mode.XOR));
 
         mPaintMaskShapeOutline = new Paint();
         mPaintMaskShapeOutline.setStrokeWidth(2 * context.getResources().getDisplayMetrics().density);
         mPaintMaskShapeOutline.setStyle(Paint.Style.STROKE);
         mPaintMaskShapeOutline.setColor(Color.BLACK);
-        mPaintMaskShapeOutline.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        mPaintMaskShapeOutline.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
 
         mShapePath = new Path();
         mMatrix = new Matrix();

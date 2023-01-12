@@ -542,7 +542,7 @@ public class CellLayout extends ViewGroup {
         }
     }
 
-    public void setOnInterceptTouchListener(View.OnTouchListener listener) {
+    public void setOnInterceptTouchListener(OnTouchListener listener) {
         mInterceptTouchListener = listener;
     }
 
@@ -563,10 +563,10 @@ public class CellLayout extends ViewGroup {
         final LayoutParams lp = params;
 
         // Hotseat icons - remove text
-        if (child instanceof BubbleTextView) {
+      /*  if (child instanceof BubbleTextView) {
             BubbleTextView bubbleChild = (BubbleTextView) child;
             bubbleChild.setTextVisibility(mContainerType != HOTSEAT);
-        }
+        }*/
 
         child.setScaleX(mChildScale);
         child.setScaleY(mChildScale);
@@ -582,6 +582,9 @@ public class CellLayout extends ViewGroup {
             child.setId(childId);
             if (LOGD) {
                 Log.d(TAG, "Adding view to ShortcutsAndWidgetsContainer: " + child);
+            }
+            if (null != child.getParent()) {
+                ((ViewGroup) child.getParent()).removeView(child);
             }
             mShortcutsAndWidgets.addView(child, index, lp);
 
@@ -2526,20 +2529,20 @@ public class CellLayout extends ViewGroup {
 
     @Override
     public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new CellLayout.LayoutParams(getContext(), attrs);
+        return new LayoutParams(getContext(), attrs);
     }
 
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof CellLayout.LayoutParams;
+        return p instanceof LayoutParams;
     }
 
     @Override
     protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
-        return new CellLayout.LayoutParams(p);
+        return new LayoutParams(p);
     }
 
-    public static class LayoutParams extends ViewGroup.MarginLayoutParams {
+    public static class LayoutParams extends MarginLayoutParams {
         /**
          * Horizontal location of the item in the grid.
          */

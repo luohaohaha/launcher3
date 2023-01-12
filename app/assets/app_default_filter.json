@@ -1,21 +1,5 @@
 [
   "com.android.launcher3_dev",
   "com.android.launcher3",
-  "com.android.camera2",
-  "com.android.camera",
-  "com.android.dialer",
-  "com.android.messaging",
-  "com.android.music",
-  "com.android.soundrecorder",
-  "com.android.browser",
   "org.chromium.webview_shell",
-  "com.android.quicksearchbox",
-  "com.android.email",
-  "com.android.calendar",
-  "com.android.contacts",
-  "com.android.deskclock",
-  "com.android.contacts",
-  "com.android.gallery3d",
-  "com.android.calculator2",
-  "com.android.documentsui"
 ]

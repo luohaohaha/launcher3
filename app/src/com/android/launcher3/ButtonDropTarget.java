@@ -224,7 +224,7 @@ public abstract class ButtonDropTarget extends TextView
     }
 
     @Override
-    public void onDragStart(DropTarget.DragObject dragObject, DragOptions options) {
+    public void onDragStart(DragObject dragObject, DragOptions options) {
         mActive = supportsDrop(dragObject.dragInfo);
         mDrawable.setColorFilter(null);
         if (mCurrentColorAnim != null) {
@@ -294,7 +294,7 @@ public abstract class ButtonDropTarget extends TextView
     public abstract void completeDrop(DragObject d);
 
     @Override
-    public void getHitRectRelativeToDragLayer(android.graphics.Rect outRect) {
+    public void getHitRectRelativeToDragLayer(Rect outRect) {
         super.getHitRect(outRect);
         outRect.bottom += mBottomDragPadding;
 

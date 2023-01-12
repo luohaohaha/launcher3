@@ -33,8 +33,8 @@ public class ParcelableSparseArray extends SparseArray<Parcelable> implements Pa
         }
     }
 
-    public static final Parcelable.Creator<ParcelableSparseArray> CREATOR =
-            new Parcelable.Creator<ParcelableSparseArray>() {
+    public static final Creator<ParcelableSparseArray> CREATOR =
+            new Creator<ParcelableSparseArray>() {
         public ParcelableSparseArray createFromParcel(Parcel source) {
             final ParcelableSparseArray array = new ParcelableSparseArray();
             final ClassLoader loader = array.getClass().getClassLoader();

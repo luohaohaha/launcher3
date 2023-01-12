@@ -87,8 +87,8 @@ public class WidgetAddFlowHandler implements Parcelable {
         return LauncherAppWidgetProviderInfo.fromProviderInfo(context, mProviderInfo);
     }
 
-    public static final Parcelable.Creator<WidgetAddFlowHandler> CREATOR =
-            new Parcelable.Creator<WidgetAddFlowHandler>() {
+    public static final Creator<WidgetAddFlowHandler> CREATOR =
+            new Creator<WidgetAddFlowHandler>() {
                 public WidgetAddFlowHandler createFromParcel(Parcel source) {
                     return new WidgetAddFlowHandler(source);
                 }

@@ -60,27 +60,42 @@
         <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
         <favorite launcher:uri="#Intent;type=images/*;end" />
     </resolve>-->
-    <favorite
-        launcher:className="com.tencent.mm.ui.LauncherUI"
+    <resolve
         launcher:container="-101"
-        launcher:packageName="com.tencent.mm"
         launcher:screen="0"
         launcher:x="0"
-        launcher:y="0" />
-
-    <favorite
-        launcher:className="com.tencent.mobileqq.activity.SplashActivity"
+        launcher:y="0" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.DIAL;end" />
+       <favorite launcher:uri="tel:123" />
+        <favorite launcher:uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
+    </resolve>
+    <!--  <favorite
+          launcher:className="com.tencent.mobileqq.activity.SplashActivity"
+          launcher:container="-101"
+          launcher:packageName="com.tencent.mobileqq"
+          launcher:screen="0"
+          launcher:x="0"
+          launcher:y="0" />-->
+    <resolve
         launcher:container="-101"
-        launcher:packageName="com.tencent.mobileqq"
         launcher:screen="1"
         launcher:x="1"
-        launcher:y="1" />
+        launcher:y="1">
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
+    </resolve>
     <resolve
         launcher:container="-101"
         launcher:screen="2"
         launcher:x="2"
         launcher:y="2">
-        <favorite launcher:uri="#Intent;action=android.settings.SETTINGS;end" />
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CONTACTS;end" />
+    </resolve>
+    <resolve
+        launcher:container="-101"
+        launcher:screen="3"
+        launcher:x="3"
+        launcher:y="3">
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
     </resolve>
     <!--
         <favorite
@@ -92,20 +107,20 @@
             launcher:y="3" />
 
     -->
-    <favorite
-        launcher:className="com.tencent.qqpinyin.activity.guide.SplashActivity"
-        launcher:container="-101"
-        launcher:packageName="com.tencent.qqpinyin"
-        launcher:screen="3"
-        launcher:x="3"
-        launcher:y="3" />
-    <favorite
-        launcher:className="com.ucpro.MainActivity"
-        launcher:container="-101"
-        launcher:packageName="com.quark.browser"
-        launcher:screen="4"
-        launcher:x="4"
-        launcher:y="4" />
+    <!--   <favorite
+           launcher:className="com.tencent.qqpinyin.activity.guide.SplashActivity"
+           launcher:container="-101"
+           launcher:packageName="com.tencent.qqpinyin"
+           launcher:screen="2"
+           launcher:x="2"
+           launcher:y="2" />
+       <favorite
+           launcher:className="com.ucpro.MainActivity"
+           launcher:container="-101"
+           launcher:packageName="com.quark.browser"
+           launcher:screen="3"
+           launcher:x="3"
+           launcher:y="3" />-->
     <!--
         <favorite
             launcher:className="com.joke.bamenshenqi.mvp.ui.activity.LoadingActivity"

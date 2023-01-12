@@ -101,7 +101,7 @@ public class WidgetsBottomSheet extends BaseWidgetSheet implements Insettable {
 
         if (widgets.size() == 1) {
             // If there is only one widget, we want to center it instead of left-align.
-            WidgetsBottomSheet.LayoutParams params = (WidgetsBottomSheet.LayoutParams)
+            LayoutParams params = (LayoutParams)
                     widgetRow.getLayoutParams();
             params.gravity = Gravity.CENTER_HORIZONTAL;
         } else {

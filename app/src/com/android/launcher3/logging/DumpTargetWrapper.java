@@ -104,9 +104,9 @@ public class DumpTargetWrapper {
             return "";
         }
         switch (t.type) {
-            case LauncherDumpProto.DumpTarget.Type.ITEM:
+            case DumpTarget.Type.ITEM:
                 return getItemStr(t);
-            case LauncherDumpProto.DumpTarget.Type.CONTAINER:
+            case DumpTarget.Type.CONTAINER:
                 String str = LoggerUtils.getFieldName(t.containerType, ContainerType.class);
                 if (t.containerType == ContainerType.WORKSPACE) {
                     str += " id=" + t.pageId;

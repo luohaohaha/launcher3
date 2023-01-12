@@ -107,8 +107,8 @@ public class PendingRequestArgs extends ItemInfo implements Parcelable {
         return args;
     }
 
-    public static final Parcelable.Creator<PendingRequestArgs> CREATOR =
-            new Parcelable.Creator<PendingRequestArgs>() {
+    public static final Creator<PendingRequestArgs> CREATOR =
+            new Creator<PendingRequestArgs>() {
                 public PendingRequestArgs createFromParcel(Parcel source) {
                     return new PendingRequestArgs(source);
                 }

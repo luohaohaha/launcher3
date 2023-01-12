@@ -57,8 +57,8 @@ public class ActivityResultInfo implements Parcelable {
         }
     }
 
-    public static final Parcelable.Creator<ActivityResultInfo> CREATOR =
-            new Parcelable.Creator<ActivityResultInfo>() {
+    public static final Creator<ActivityResultInfo> CREATOR =
+            new Creator<ActivityResultInfo>() {
                 public ActivityResultInfo createFromParcel(Parcel source) {
                     return new ActivityResultInfo(source);
                 }

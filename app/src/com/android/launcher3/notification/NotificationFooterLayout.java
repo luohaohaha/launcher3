@@ -59,7 +59,7 @@ public class NotificationFooterLayout extends FrameLayout {
     private final boolean mRtl;
     private final int mBackgroundColor;
 
-    FrameLayout.LayoutParams mIconLayoutParams;
+    LayoutParams mIconLayoutParams;
     private View mOverflowEllipsis;
     private LinearLayout mIconRow;
     private NotificationItemView mContainer;

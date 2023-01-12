@@ -1,5 +1,5 @@
 # Launcher3客制化记录（基于Android P）
-<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20221020_183945.png" alt="" width="270"/> &nbsp;<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20221031_161605.png" alt="" width="270"/> &nbsp;<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20221031_161624.png" alt="" width="270"/>
+<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20230111_233223.png" alt="" width="270"/> &nbsp;<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20230111_233237.png" alt="" width="270"/> &nbsp;<img src="https://github.com/luohaohaha/launcher3/blob/dev/images/Screenshot_20230111_233254.png" alt="" width="270"/>
 
 ### [AOSP地址][1]
 [1]: https://android.googlesource.com/platform/packages/apps/Launcher3/
@@ -362,10 +362,13 @@ private void notifyChange() {
 - [x] 默认壁纸不影响壁纸更换
 - [x] 重启保留原始(移动)位置
 - [x] 快捷卸载(长按弹出卸载菜单)
-- [ ] 统一图标大小
+- [x] 统一图标大小(圆角)
+- [x] 支持指定包名更换icon(参考ThemeIconMapping)
+- [x] HotSeat默认添加(电话、信息、联系人、相册)，桌面默认添加4x2时钟(如果有的话会显示，可能只有AOSP才能显示)
+- [x] HotSeat显示文字
+- [x] onConfigurationChanged 重刷UI，修复分辨率动态变化显示不全的问题
 - [ ] 圆角图标完善(处理带透明边框的图标)
 - [ ] 桌面应用卸载重排序
-- [ ] 修复应用自身生成shortcut导致图标重复
 
 记录，后续更新...
 

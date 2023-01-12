@@ -87,8 +87,8 @@ public class CustomAppWidgetProviderInfo extends LauncherAppWidgetProviderInfo
         out.writeInt(minSpanY);
     }
 
-    public static final Parcelable.Creator<CustomAppWidgetProviderInfo> CREATOR
-            = new Parcelable.Creator<CustomAppWidgetProviderInfo>() {
+    public static final Creator<CustomAppWidgetProviderInfo> CREATOR
+            = new Creator<CustomAppWidgetProviderInfo>() {
 
         @Override
         public CustomAppWidgetProviderInfo createFromParcel(Parcel parcel) {

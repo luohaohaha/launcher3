@@ -27,7 +27,7 @@ import android.os.UserHandle;
 import com.android.launcher3.R;
 
 /**
- * Wrapper class for {@link android.content.pm.ShortcutInfo}, representing deep shortcuts into apps.
+ * Wrapper class for {@link ShortcutInfo}, representing deep shortcuts into apps.
  *
  * Not to be confused with {@link com.android.launcher3.ShortcutInfo}.
  */

@@ -33,7 +33,7 @@ import com.android.launcher3.popup.PopupContainerWithArrow;
 import com.android.launcher3.touch.ItemClickHandler;
 
 /**
- * A {@link android.widget.FrameLayout} that contains a {@link DeepShortcutView}.
+ * A {@link FrameLayout} that contains a {@link DeepShortcutView}.
  * This lets us animate the DeepShortcutView (icon and text) separately from the background.
  */
 public class DeepShortcutView extends FrameLayout {

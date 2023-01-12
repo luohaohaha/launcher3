@@ -100,7 +100,7 @@ public class LauncherAppsCompatVL extends LauncherAppsCompat {
     }
 
     @Override
-    public void addOnAppsChangedCallback(LauncherAppsCompat.OnAppsChangedCallbackCompat callback) {
+    public void addOnAppsChangedCallback(OnAppsChangedCallbackCompat callback) {
         WrappedCallback wrappedCallback = new WrappedCallback(callback);
         synchronized (mCallbacks) {
             mCallbacks.put(callback, wrappedCallback);
@@ -130,9 +130,9 @@ public class LauncherAppsCompatVL extends LauncherAppsCompat {
     }
 
     private static class WrappedCallback extends LauncherApps.Callback {
-        private final LauncherAppsCompat.OnAppsChangedCallbackCompat mCallback;
+        private final OnAppsChangedCallbackCompat mCallback;
 
-        public WrappedCallback(LauncherAppsCompat.OnAppsChangedCallbackCompat callback) {
+        public WrappedCallback(OnAppsChangedCallbackCompat callback) {
             mCallback = callback;
         }
 

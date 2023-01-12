@@ -47,7 +47,7 @@ import java.util.Set;
 import java.util.concurrent.Executor;
 
 /**
- * Helper class to handle results of {@link com.android.launcher3.model.LoaderTask}.
+ * Helper class to handle results of {@link LoaderTask}.
  */
 public class LoaderResults {
 

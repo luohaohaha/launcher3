@@ -114,7 +114,7 @@ public class ShortcutInfo extends ItemInfoWithIcon {
     @TargetApi(Build.VERSION_CODES.N)
     public ShortcutInfo(ShortcutInfoCompat shortcutInfo, Context context) {
         user = shortcutInfo.getUserHandle();
-        itemType = LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT;
+        itemType = Favorites.ITEM_TYPE_DEEP_SHORTCUT;
         updateFromDeepShortcutInfo(shortcutInfo, context);
     }
 
@@ -123,7 +123,7 @@ public class ShortcutInfo extends ItemInfoWithIcon {
         super.onAddToDatabase(writer);
         writer.put(LauncherSettings.BaseLauncherColumns.TITLE, title)
                 .put(LauncherSettings.BaseLauncherColumns.INTENT, getIntent())
-                .put(LauncherSettings.Favorites.RESTORED, status);
+                .put(Favorites.RESTORED, status);
 
         if (!usingLowResIcon) {
             writer.putIcon(iconBitmap, user);
@@ -190,7 +190,7 @@ public class ShortcutInfo extends ItemInfoWithIcon {
     @Override
     public ComponentName getTargetComponent() {
         ComponentName cn = super.getTargetComponent();
-        if (cn == null && (itemType == LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT
+        if (cn == null && (itemType == Favorites.ITEM_TYPE_SHORTCUT
                 || hasStatusFlag(FLAG_SUPPORTS_WEB_UI))) {
             // Legacy shortcuts and promise icons with web UI may not have a componentName but just
             // a packageName. In that case create a dummy componentName instead of adding additional

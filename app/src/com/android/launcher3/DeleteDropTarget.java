@@ -51,7 +51,7 @@ public class DeleteDropTarget extends ButtonDropTarget {
     }
 
     @Override
-    public void onDragStart(DropTarget.DragObject dragObject, DragOptions options) {
+    public void onDragStart(DragObject dragObject, DragOptions options) {
         super.onDragStart(dragObject, options);
         setTextBasedOnDragSource(dragObject.dragInfo);
         setControlTypeBasedOnDragSource(dragObject.dragInfo);

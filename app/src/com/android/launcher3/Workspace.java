@@ -356,7 +356,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     }
 
     @Override
-    public void onDragStart(DropTarget.DragObject dragObject, DragOptions options) {
+    public void onDragStart(DragObject dragObject, DragOptions options) {
         if (ENFORCE_DRAG_EVENT_ORDER) {
             enforceDragParity("onDragStart", 0, 0);
         }
@@ -884,7 +884,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 
             // Hide folder title in the hotseat
             if (child instanceof FolderIcon) {
-                ((FolderIcon) child).setTextVisible(false);
+                ((FolderIcon) child).setTextVisible(true);
             }
         } else {
             // Show folder title if not in the hotseat
@@ -894,7 +894,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             layout = getScreenWithId(screenId);
         }
 
-        ViewGroup.LayoutParams genericLp = child.getLayoutParams();
+        LayoutParams genericLp = child.getLayoutParams();
         CellLayout.LayoutParams lp;
         if (genericLp == null || !(genericLp instanceof CellLayout.LayoutParams)) {
             lp = new CellLayout.LayoutParams(x, y, spanX, spanY);

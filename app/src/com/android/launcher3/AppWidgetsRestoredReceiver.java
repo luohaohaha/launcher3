@@ -88,8 +88,8 @@ public class AppWidgetsRestoredReceiver extends BroadcastReceiver {
             String[] widgetIdParams = new String[] { Integer.toString(oldWidgetIds[i]) };
             int result = new ContentWriter(context, new ContentWriter.CommitParams(
                     "appWidgetId=? and (restored & 1) = 1", widgetIdParams))
-                    .put(LauncherSettings.Favorites.APPWIDGET_ID, newWidgetIds[i])
-                    .put(LauncherSettings.Favorites.RESTORED, state)
+                    .put(Favorites.APPWIDGET_ID, newWidgetIds[i])
+                    .put(Favorites.RESTORED, state)
                     .commit();
 
             if (result == 0) {

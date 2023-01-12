@@ -120,9 +120,9 @@ public class GridSizeMigrationTask {
             if (DEBUG) {
                 Log.d(TAG, "Removing items: " + TextUtils.join(", ", mEntryToRemove));
             }
-            mContext.getContentResolver().delete(LauncherSettings.Favorites.CONTENT_URI,
+            mContext.getContentResolver().delete(Favorites.CONTENT_URI,
                     Utilities.createDbSelectionQuery(
-                            LauncherSettings.Favorites._ID, mEntryToRemove), null);
+                            Favorites._ID, mEntryToRemove), null);
         }
 
         return !mUpdateOperations.isEmpty() || !mEntryToRemove.isEmpty();
@@ -359,7 +359,7 @@ public class GridSizeMigrationTask {
         mTempValues.clear();
         item.addToContentValues(mTempValues);
         mUpdateOperations.add(ContentProviderOperation
-                .newUpdate(LauncherSettings.Favorites.getContentUri(item.id))
+                .newUpdate(Favorites.getContentUri(item.id))
                 .withValues(mTempValues).build());
     }
 
@@ -603,7 +603,7 @@ public class GridSizeMigrationTask {
     }
 
     private ArrayList<DbEntry> loadHotseatEntries() {
-        Cursor c =  mContext.getContentResolver().query(LauncherSettings.Favorites.CONTENT_URI,
+        Cursor c =  mContext.getContentResolver().query(Favorites.CONTENT_URI,
                 new String[]{
                         Favorites._ID,                  // 0
                         Favorites.ITEM_TYPE,            // 1
@@ -787,7 +787,7 @@ public class GridSizeMigrationTask {
     }
 
     protected Cursor queryWorkspace(String[] columns, String where) {
-        return mContext.getContentResolver().query(LauncherSettings.Favorites.CONTENT_URI,
+        return mContext.getContentResolver().query(Favorites.CONTENT_URI,
                 columns, where, null, null, null);
     }
 
@@ -854,11 +854,11 @@ public class GridSizeMigrationTask {
         }
 
         public void addToContentValues(ContentValues values) {
-            values.put(LauncherSettings.Favorites.SCREEN, screenId);
-            values.put(LauncherSettings.Favorites.CELLX, cellX);
-            values.put(LauncherSettings.Favorites.CELLY, cellY);
-            values.put(LauncherSettings.Favorites.SPANX, spanX);
-            values.put(LauncherSettings.Favorites.SPANY, spanY);
+            values.put(Favorites.SCREEN, screenId);
+            values.put(Favorites.CELLX, cellX);
+            values.put(Favorites.CELLY, cellY);
+            values.put(Favorites.SPANX, spanX);
+            values.put(Favorites.SPANY, spanY);
         }
     }
 
@@ -929,7 +929,7 @@ public class GridSizeMigrationTask {
             if (dbChanged) {
                 // Make sure we haven't removed everything.
                 final Cursor c = context.getContentResolver().query(
-                        LauncherSettings.Favorites.CONTENT_URI, null, null, null, null);
+                        Favorites.CONTENT_URI, null, null, null, null);
                 boolean hasData = c.moveToNext();
                 c.close();
                 if (!hasData) {

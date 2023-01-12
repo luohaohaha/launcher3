@@ -168,6 +168,10 @@ public class LauncherAppState {
         return mInvariantDeviceProfile;
     }
 
+    public void updateDeviceProfile(){
+        mInvariantDeviceProfile.initProfile(mContext);
+    }
+
     /**
      * Shorthand for {@link #getInvariantDeviceProfile()}
      */

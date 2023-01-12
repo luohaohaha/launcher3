@@ -74,7 +74,7 @@ public class QsbContainerView extends FrameLayout {
     /**
      * A fragment to display the QSB.
      */
-    public static class QsbFragment extends Fragment implements View.OnClickListener {
+    public static class QsbFragment extends Fragment implements OnClickListener {
 
         private static final int REQUEST_BIND_QSB = 1;
         private static final String QSB_WIDGET_ID = "qsb_widget_id";

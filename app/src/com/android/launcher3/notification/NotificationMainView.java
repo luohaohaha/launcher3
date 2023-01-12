@@ -44,7 +44,7 @@ import com.android.launcher3.userevent.nano.LauncherLogProto;
 import com.android.launcher3.util.Themes;
 
 /**
- * A {@link android.widget.FrameLayout} that contains a single notification,
+ * A {@link FrameLayout} that contains a single notification,
  * e.g. icon + title + text.
  */
 @TargetApi(Build.VERSION_CODES.N)

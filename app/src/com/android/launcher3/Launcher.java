@@ -153,6 +153,7 @@ import static com.android.launcher3.LauncherState.NORMAL;
 import static com.android.launcher3.dragndrop.DragLayer.ALPHA_INDEX_LAUNCHER_LOAD;
 import static com.android.launcher3.logging.LoggerUtils.newContainerTarget;
 import static com.android.launcher3.logging.LoggerUtils.newTarget;
+
 import android.app.WallpaperManager;
 
 /**
@@ -378,13 +379,17 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         int diff = newConfig.diff(mOldConfig);
         if ((diff & (CONFIG_ORIENTATION | CONFIG_SCREEN_SIZE)) != 0) {
             mUserEventDispatcher = null;
-            initDeviceProfile(mDeviceProfile.inv);
+            LauncherAppState.getInstance(this).updateDeviceProfile();
+            initDeviceProfile(LauncherAppState.getInstance(this).getInvariantDeviceProfile());
             dispatchDeviceProfileChanged();
             reapplyUi();
             mDragLayer.recreateControllers();
 
             // TODO: We can probably avoid rebind when only screen size changed.
             rebindModel();
+            if (null != mDragController) {
+                mDragController.cancelDrag();
+            }
         }
 
         mOldConfig.setTo(newConfig);
@@ -396,7 +401,12 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     private void refreshWallpaper() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             WallpaperManager wallpaperManager = getSystemService(WallpaperManager.class);
-            Drawable drawable = wallpaperManager.getDrawable();
+            Drawable drawable = null;
+            try {
+                drawable = wallpaperManager.getDrawable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (null != drawable) {
                 try {
                     if (drawable instanceof BitmapDrawable) {

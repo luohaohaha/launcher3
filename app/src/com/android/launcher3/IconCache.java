@@ -62,6 +62,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+import  com.android.launcher3.util.ThemeIconMapping;
 
 /**
  * Cache of application icons.  Icons can be made from any thread.
@@ -154,7 +155,7 @@ public class IconCache {
         Resources resources;
         try {
             resources = mPackageManager.getResourcesForApplication(packageName);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             resources = null;
         }
         if (resources != null) {
@@ -170,7 +171,7 @@ public class IconCache {
         try {
             resources = mPackageManager.getResourcesForApplication(
                     info.applicationInfo);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             resources = null;
         }
         if (resources != null) {
@@ -579,6 +580,10 @@ public class IconCache {
                 if (info != null) {
                     entry.title = info.getLabel();
                     entry.contentDescription = mUserManager.getBadgedLabelForUser(entry.title, user);
+                    Bitmap themeIcon = ThemeIconMapping.getThemeBitmap(mContext,componentName.getPackageName());
+                    if( null != themeIcon) {
+                        entry.icon = themeIcon;
+                    }
                 }
             }
         }

@@ -70,8 +70,8 @@ public class PinWidgetFlowHandler extends WidgetAddFlowHandler implements Parcel
         return false;
     }
 
-    public static final Parcelable.Creator<PinWidgetFlowHandler> CREATOR =
-            new Parcelable.Creator<PinWidgetFlowHandler>() {
+    public static final Creator<PinWidgetFlowHandler> CREATOR =
+            new Creator<PinWidgetFlowHandler>() {
                 public PinWidgetFlowHandler createFromParcel(Parcel source) {
                     return new PinWidgetFlowHandler(source);
                 }

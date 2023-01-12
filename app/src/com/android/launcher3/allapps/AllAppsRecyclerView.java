@@ -93,7 +93,7 @@ public class AllAppsRecyclerView extends BaseRecyclerView implements LogContaine
 
     private void updatePoolSize() {
         DeviceProfile grid = Launcher.getLauncher(getContext()).getDeviceProfile();
-        RecyclerView.RecycledViewPool pool = getRecycledViewPool();
+        RecycledViewPool pool = getRecycledViewPool();
         int approxRows = (int) Math.ceil(grid.availableHeightPx / grid.allAppsIconSizePx);
         pool.setMaxRecycledViews(AllAppsGridAdapter.VIEW_TYPE_EMPTY_SEARCH, 1);
         pool.setMaxRecycledViews(AllAppsGridAdapter.VIEW_TYPE_ALL_APPS_DIVIDER, 1);
@@ -216,7 +216,7 @@ public class AllAppsRecyclerView extends BaseRecyclerView implements LogContaine
     @Override
     public void setAdapter(Adapter adapter) {
         super.setAdapter(adapter);
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        adapter.registerAdapterDataObserver(new AdapterDataObserver() {
             public void onChanged() {
                 mCachedScrollPositions.clear();
             }

@@ -277,12 +277,12 @@ public class ModelWriter {
 
         mWorkerExecutor.execute(() -> {
             ContentResolver cr = mContext.getContentResolver();
-            cr.delete(LauncherSettings.Favorites.CONTENT_URI,
-                    LauncherSettings.Favorites.CONTAINER + "=" + info.id, null);
+            cr.delete(Favorites.CONTENT_URI,
+                    Favorites.CONTAINER + "=" + info.id, null);
             mBgDataModel.removeItem(mContext, info.contents);
             info.contents.clear();
 
-            cr.delete(LauncherSettings.Favorites.getContentUri(info.id), null, null);
+            cr.delete(Favorites.getContentUri(info.id), null, null);
             mBgDataModel.removeItem(mContext, info);
             verifier.verifyModel();
         });

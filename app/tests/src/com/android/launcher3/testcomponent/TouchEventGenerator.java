@@ -260,7 +260,7 @@ public class TouchEventGenerator {
             index++;
         }
 
-        return new Pair<MotionEvent.PointerProperties[], MotionEvent.PointerCoords[]>(
+        return new Pair<PointerProperties[], PointerCoords[]>(
                 properties, coordinates);
     }
 

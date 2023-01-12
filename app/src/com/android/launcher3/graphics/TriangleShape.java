@@ -22,7 +22,7 @@ import android.graphics.drawable.shapes.PathShape;
 import android.support.annotation.NonNull;
 
 /**
- * Wrapper around {@link android.graphics.drawable.shapes.PathShape}
+ * Wrapper around {@link PathShape}
  * that creates a shape with a triangular path (pointing up or down).
  */
 public class TriangleShape extends PathShape {

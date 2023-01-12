@@ -48,7 +48,7 @@ public class InsettableFrameLayout extends FrameLayout implements Insettable {
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new InsettableFrameLayout.LayoutParams(getContext(), attrs);
+        return new LayoutParams(getContext(), attrs);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class InsettableFrameLayout extends FrameLayout implements Insettable {
     // Override to allow type-checking of LayoutParams.
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof InsettableFrameLayout.LayoutParams;
+        return p instanceof LayoutParams;
     }
 
     @Override

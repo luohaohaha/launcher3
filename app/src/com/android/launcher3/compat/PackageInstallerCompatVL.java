@@ -151,7 +151,7 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
         }
     };
 
-    private PackageInstaller.SessionInfo verify(PackageInstaller.SessionInfo sessionInfo) {
+    private SessionInfo verify(SessionInfo sessionInfo) {
         if (sessionInfo == null
                 || sessionInfo.getInstallerPackageName() == null
                 || TextUtils.isEmpty(sessionInfo.getAppPackageName())) {

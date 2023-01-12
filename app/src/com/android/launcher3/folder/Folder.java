@@ -289,7 +289,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
     }
 
     @Override
-    public void onDragStart(DropTarget.DragObject dragObject, DragOptions options) {
+    public void onDragStart(DragObject dragObject, DragOptions options) {
         if (dragObject.dragSource != this) {
             return;
         }

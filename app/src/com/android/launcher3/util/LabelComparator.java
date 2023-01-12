@@ -19,7 +19,7 @@ import java.text.Collator;
 import java.util.Comparator;
 
 /**
- * Extension of {@link java.text.Collator} with special handling for digits. Used for comparing
+ * Extension of {@link Collator} with special handling for digits. Used for comparing
  * user visible labels.
  */
 public class LabelComparator implements Comparator<String> {

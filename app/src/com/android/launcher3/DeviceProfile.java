@@ -327,9 +327,9 @@ public class DeviceProfile {
 
         // Hotseat
         if (isVerticalLayout) {
-            hotseatBarSizePx = iconSizePx;
+            hotseatBarSizePx = cellHeightPx ;
         }
-        hotseatCellHeightPx = iconSizePx;
+        hotseatCellHeightPx = cellHeightPx ;
 
         if (!isVerticalLayout) {
             int expectedWorkspaceHeight = availableHeightPx - hotseatBarSizePx
