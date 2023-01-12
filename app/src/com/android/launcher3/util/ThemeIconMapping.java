@@ -1,6 +1,7 @@
 package com.android.launcher3.util;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -22,8 +23,12 @@ import com.android.launcher3.R;
  * <p>
  */
 public class ThemeIconMapping {
-
     private static final String TAG = ThemeIconMapping.class.getSimpleName();
+
+    private ThemeIconMapping(){
+
+    }
+
     private static final Map<String, Integer> THEME_ICONS = new HashMap<String, Integer>() {
         {
 //            put("com.android.deskclock", R.drawable.icon_theme_clock);
@@ -40,6 +45,12 @@ public class ThemeIconMapping {
         }
     };
 
+    /**
+     * 根据包名获取映射图片
+     * @param context 上下文
+     * @param packageName 包名
+     * @return 如果有映射，返回 {@link  BitmapFactory#decodeResource(Resources, int)} 没有映射返回 null
+     */
     public static Bitmap getThemeBitmap(Context context, String packageName) {
         Log.d(TAG, "packageName=" + packageName);
         Integer resId = THEME_ICONS.get(packageName);

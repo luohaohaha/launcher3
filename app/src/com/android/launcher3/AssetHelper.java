@@ -25,6 +25,10 @@ public class AssetHelper {
 
     public static String TAG = "AssetHelper";
 
+    private AssetHelper(){
+
+    }
+
     /**
      * 获取asset目录下文件
      *

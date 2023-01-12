@@ -379,6 +379,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         int diff = newConfig.diff(mOldConfig);
         if ((diff & (CONFIG_ORIENTATION | CONFIG_SCREEN_SIZE)) != 0) {
             mUserEventDispatcher = null;
+            //分辨率发生变化调整icon大小和hotseat icon 大小
             LauncherAppState.getInstance(this).updateDeviceProfile();
             initDeviceProfile(LauncherAppState.getInstance(this).getInvariantDeviceProfile());
             dispatchDeviceProfileChanged();
@@ -390,11 +391,12 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
             if (null != mDragController) {
                 mDragController.cancelDrag();
             }
+            //刷新壁纸
+            refreshWallpaper();
         }
 
         mOldConfig.setTo(newConfig);
         UiFactory.onLauncherStateOrResumeChanged(this);
-        refreshWallpaper();
         super.onConfigurationChanged(newConfig);
     }
 
