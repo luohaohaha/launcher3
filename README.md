@@ -364,7 +364,7 @@ private void notifyChange() {
 - [x] 快捷卸载(长按弹出卸载菜单)
 - [x] 统一图标大小(圆角)
 - [x] 支持指定包名更换icon(参考ThemeIconMapping)
-- [x] HotSeat默认添加(电话、信息、联系人、相册)，桌面默认添加4x2时钟(如果有的话会显示，可能只有AOSP才能显示)
+- [x] HotSeat默认添加默认应用(电话、信息、联系人、相册)，桌面默认添加4x2时钟(如果有的话会显示，可能只有AOSP才能显示)
 - [x] HotSeat显示文字
 - [x] onConfigurationChanged 重刷UI，修复分辨率动态变化显示不全的问题
 - [ ] 圆角图标完善(处理带透明边框的图标)
