@@ -10,10 +10,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Project: Launcher3_mx<br/>
+ * Project: launcher3-github<br/>
  * Package: com.android.launcher3<br/>
  * ClassName: AssetHelper<br/>
- * Description: TODO<br/>
+ * Description: asset 读取操作类<br/>
  * Date: 2020/3/3 3:42 PM <br/>
  * <p>
  * Author  LuoHao<br/>

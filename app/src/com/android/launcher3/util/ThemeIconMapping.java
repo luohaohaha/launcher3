@@ -10,10 +10,10 @@ import java.util.Map;
 import com.android.launcher3.R;
 
 /**
- * Project: cloud_app<br/>
- * Package: com.sqcloud.sample<br/>
+ * Project: launcher3-github<br/>
+ * Package: com.android.launcher3<br/>
  * ClassName: ThemeIconMapping<br/>
- * Description: TODO<br/>
+ * Description: 指定包名映射icon<br/>
  * Date: 2022-12-27 01:45 <br/>
  * <p>
  * Author luohao<br/>
