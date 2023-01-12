@@ -357,7 +357,7 @@ private void notifyChange() {
 - [x] 应用移到桌面(单层桌面)
 - [x] 去除向上小箭头
 - [x] app过滤
-- [x] hotseat禁用文件夹
+- [x] HotSeat禁用文件夹
 - [x] 支持横竖屏
 - [x] 默认壁纸不影响壁纸更换
 - [x] 重启保留原始(移动)位置
