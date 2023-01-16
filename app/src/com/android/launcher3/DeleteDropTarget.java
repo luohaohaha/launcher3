@@ -16,6 +16,8 @@
 
 package com.android.launcher3;
 
+import static com.android.launcher3.LauncherSettings.BaseLauncherColumns.ITEM_TYPE_APPLICATION;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -81,13 +83,11 @@ public class DeleteDropTarget extends ButtonDropTarget {
      * Set the drop target's text to either "Remove" or "Cancel" depending on the drag item.
      */
     private void setTextBasedOnDragSource(ItemInfo item) {
-        if (!TextUtils.isEmpty(mText)) {
-           /* mText = getResources().getString(item.id != ItemInfo.NO_ID
-                    ? R.string.remove_drop_target_label
-                    : android.R.string.cancel);*/
-                mText = getResources().getString( android.R.string.cancel);
-            requestLayout();
-        }
+        mText = getResources().getString(item.itemType != ITEM_TYPE_APPLICATION
+                ? R.string.remove_drop_target_label
+                : android.R.string.cancel);
+        /*  mText = getResources().getString( android.R.string.cancel);*/
+        requestLayout();
     }
 
     /**
