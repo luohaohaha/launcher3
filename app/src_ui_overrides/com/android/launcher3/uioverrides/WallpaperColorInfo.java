@@ -78,7 +78,7 @@ public class WallpaperColorInfo implements WallpaperManagerCompat.OnColorsChange
 
     @Override
     public void onColorsChanged(WallpaperColorsCompat colors, int which) {
-        if ((which & FLAG_SYSTEM) != 0) {
+        if (null != colors && (which & FLAG_SYSTEM) != 0) {
             update(colors);
             notifyChange();
         }
